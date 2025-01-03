@@ -14,18 +14,18 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #000; /* Black background */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #fff; /* White text */
 }
 
 .App-link {
-  color: #61dafb;
+  color: #ff0000; /* Red link */
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +35,158 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.sign-up-container {
+  background-color: #000; /* Black background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Red shadow */
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: left;
+  color: #fff; /* White text */
+}
+
+.sign-up-container h2 {
+  margin-bottom: 20px;
+  color: #ff0000; /* Red heading */
+}
+
+.sign-up-container form div {
+  margin-bottom: 15px;
+}
+
+.sign-up-container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ff0000; /* Red label */
+}
+
+.sign-up-container input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: #333; /* Dark grey input background */
+  border: 1px solid #ff0000; /* Red border */
+  color: #fff; /* White text */
+}
+
+.sign-up-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000; /* Red button */
+  border: none;
+  border-radius: 5px;
+  color: #fff; /* White text */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate buttons */
+}
+
+.sign-up-container button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+.login-container {
+  background-color: #000; /* Black background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Red shadow */
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: left;
+  color: #fff; /* White text */
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #ff0000; /* Red heading */
+}
+
+.login-container form div {
+  margin-bottom: 15px;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ff0000; /* Red label */
+}
+
+.login-container input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: #333; /* Dark grey input background */
+  border: 1px solid #ff0000; /* Red border */
+  color: #fff; /* White text */
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000; /* Red button */
+  border: none;
+  border-radius: 5px;
+  color: #fff; /* White text */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate buttons */
+}
+
+.login-container button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+.kanban-board {
+  background-color: #000; /* Black background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Red shadow */
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: left;
+  color: #fff; /* White text */
+}
+
+.kanban-board h2 {
+  margin-bottom: 20px;
+  color: #ff0000; /* Red heading */
+}
+
+.kanban-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Add spacing between columns */
+}
+
+.kanban-column {
+  background-color: #333; /* Dark grey column background */
+  padding: 10px;
+  border-radius: 5px;
+  width: 30%;
+  height: 600px; /* Increase the height of the columns */
+  overflow-y: auto; /* Add scroll if content overflows */
+}
+
+.kanban-column h3 {
+  color: #ff0000; /* Red column heading */
+  margin-bottom: 10px;
+}
+
+.kanban-board button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000; /* Red button */
+  border: none;
+  border-radius: 5px;
+  color: #fff; /* White text */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate buttons */
+}
+
+.kanban-board button:hover {
+  background-color: #cc0000; /* Darker red on hover */
 }
