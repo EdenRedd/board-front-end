@@ -33,7 +33,7 @@ const Home: React.FC = () => {
     <>
       <img src="./logo.svg" className="App-logo" alt="logo" />
       <p>
-        Edit <code>src/App.tsx</code> and save to reload.
+        Welcome to KanbanIQ <code></code>
       </p>
       <Link to="/signup" className="App-link">
         Sign Up
@@ -41,12 +41,7 @@ const Home: React.FC = () => {
       <Link to="/login" className="App-link">
         Login
       </Link>
-      <Link to="/kanban" className="App-link">
-        Kanban Board
-      </Link>
-      <button onClick={() => (window.location.href = "/login")}>
-        Go to Login
-      </button>
+      {/* Remove Kanban Board link */}
     </>
   );
 };
