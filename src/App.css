@@ -190,3 +190,184 @@
 .kanban-board button:hover {
   background-color: #cc0000; /* Darker red on hover */
 }
+
+.create-ticket-container {
+  background-color: #000; /* Black background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Red shadow */
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: left;
+  color: #fff; /* White text */
+}
+
+.create-ticket-container h2 {
+  margin-bottom: 20px;
+  color: #ff0000; /* Red heading */
+}
+
+.create-ticket-container form div {
+  margin-bottom: 15px;
+}
+
+.create-ticket-container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ff0000; /* Red label */
+}
+
+.create-ticket-container input,
+.create-ticket-container textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: #333; /* Dark grey input background */
+  border: 1px solid #ff0000; /* Red border */
+  color: #fff; /* White text */
+}
+
+.create-ticket-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000; /* Red button */
+  border: none;
+  border-radius: 5px;
+  color: #fff; /* White text */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate buttons */
+}
+
+.create-ticket-container button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+.kanban-ticket {
+  background-color: #444; /* Darker grey ticket background */
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #fff; /* White text */
+}
+
+.kanban-ticket h4 {
+  margin: 0 0 5px 0;
+  color: #ff0000; /* Red ticket title */
+}
+
+.kanban-ticket button {
+  width: 100%;
+  padding: 5px;
+  background-color: #ff0000; /* Red button */
+  border: none;
+  border-radius: 5px;
+  color: #fff; /* White text */
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px; /* Add margin to separate buttons */
+}
+
+.kanban-ticket button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+.kanban-container {
+  display: flex;
+}
+
+.kanban-sidebar {
+  width: 200px;
+  background-color: #333; /* Dark grey sidebar background */
+  padding: 20px;
+  color: #fff; /* White text */
+}
+
+.kanban-sidebar h3 {
+  color: #ff0000; /* Red heading */
+}
+
+.kanban-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.kanban-sidebar li {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #444; /* Darker grey border */
+}
+
+.kanban-sidebar li:hover {
+  background-color: #444; /* Darker grey on hover */
+}
+
+.kanban-sidebar button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000; /* Red button */
+  border: none;
+  border-radius: 5px;
+  color: #fff; /* White text */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate buttons */
+}
+
+.kanban-sidebar button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #000; /* Black background */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Red shadow */
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+  color: #fff; /* White text */
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #ff0000; /* Red heading */
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: #333; /* Dark grey input background */
+  border: 1px solid #ff0000; /* Red border */
+  color: #fff; /* White text */
+  margin-bottom: 15px;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000; /* Red button */
+  border: none;
+  border-radius: 5px;
+  color: #fff; /* White text */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin to separate buttons */
+}
+
+.modal-content button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
