@@ -4,7 +4,7 @@ import {
   Route,
   Routes,
   Link,
-  useLocation,
+  useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import SignUp from "./components/SignUp";
@@ -29,6 +29,12 @@ const App: React.FC = () => {
 };
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleRefreshBoards = () => {
+    navigate("/kanban");
+  };
+
   return (
     <>
       <img src="./logo.svg" className="App-logo" alt="logo" />
@@ -41,7 +47,9 @@ const Home: React.FC = () => {
       <Link to="/login" className="App-link">
         Login
       </Link>
-      {/* Remove Kanban Board link */}
+      <button onClick={handleRefreshBoards} className="App-link">
+        Refresh Boards
+      </button>
     </>
   );
 };
