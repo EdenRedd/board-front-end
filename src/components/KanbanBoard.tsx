@@ -12,6 +12,7 @@ interface Ticket {
   title: string;
   description: string;
   status: "To Do" | "In Progress" | "Done";
+  rangeKey: string; // Add rangeKey to Ticket interface
 }
 
 interface Board {
@@ -33,6 +34,9 @@ const KanbanBoard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
+  const [ticketTitle, setTicketTitle] = useState("");
+  const [ticketDescription, setTicketDescription] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -78,6 +82,36 @@ const KanbanBoard: React.FC = () => {
     }
   };
 
+  const fetchTickets = async (boardName: string) => {
+    const params = { boardName: boardName };
+    console.log("GET request params for tickets:", JSON.stringify(params));
+    try {
+      const response = await axios.get(`${apiBaseUrl}/tickets`, {
+        params,
+      });
+      console.log("Fetched tickets response:", response.data.data);
+      const ticketsData = Array.isArray(response.data.data)
+        ? response.data.data.map((item: any) => ({
+            id: item.ticketId,
+            title: item.ticketName,
+            description: item.description,
+            status: item.status,
+            rangeKey: item.rangeKey, // Save the full range key
+          }))
+        : [];
+      console.log("tickets data:", ticketsData);
+      setBoards((prevBoards) =>
+        prevBoards.map((board) =>
+          board.boardName === boardName
+            ? { ...board, tickets: ticketsData }
+            : board
+        )
+      );
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
+    }
+  };
+
   const handleCreateTicket = async (title: string, description: string) => {
     if (selectedBoardId === null) return;
     const newTicket: Ticket = {
@@ -85,6 +119,7 @@ const KanbanBoard: React.FC = () => {
       title,
       description,
       status: "To Do",
+      rangeKey: "", // Initialize rangeKey as empty
     };
 
     const ticketData = {
@@ -94,7 +129,8 @@ const KanbanBoard: React.FC = () => {
     console.log("POST request data:", JSON.stringify(ticketData));
 
     try {
-      await axios.post(`${apiBaseUrl}/tickets`, ticketData);
+      const response = await axios.post(`${apiBaseUrl}/tickets`, ticketData);
+      newTicket.rangeKey = response.data.rangeKey; // Set the rangeKey from response
       setBoards((prevBoards) =>
         prevBoards.map((board) =>
           board.id === selectedBoardId
@@ -153,6 +189,77 @@ const KanbanBoard: React.FC = () => {
     }
   };
 
+  const handleTicketClick = (ticket: Ticket) => {
+    setSelectedTicket(ticket);
+    setTicketTitle(ticket.title);
+    setTicketDescription(ticket.description);
+  };
+
+  const handleTicketUpdate = async () => {
+    if (!selectedTicket || !selectedBoardId) return;
+    const updatedTicket = {
+      ...selectedTicket,
+      title: ticketTitle,
+      description: ticketDescription,
+    };
+
+    try {
+      await axios.put(`${apiBaseUrl}/tickets/${selectedTicket.id}`, {
+        boardName: selectedBoardId,
+        ticketName: ticketTitle,
+        description: ticketDescription,
+      });
+      setBoards((prevBoards) =>
+        prevBoards.map((board) =>
+          board.id === selectedBoardId
+            ? {
+                ...board,
+                tickets: board.tickets.map((ticket) =>
+                  ticket.id === selectedTicket.id ? updatedTicket : ticket
+                ),
+              }
+            : board
+        )
+      );
+      setSelectedTicket(null);
+    } catch (error) {
+      console.error("Error updating ticket:", error);
+      alert("Failed to update ticket. Please try again.");
+    }
+  };
+
+  const handleTicketDelete = async () => {
+    if (!selectedTicket || !selectedBoardId) return;
+
+    const deleteData = {
+      boardName: selectedBoardId,
+      rangeKey: selectedTicket.rangeKey,
+    };
+    console.log("DELETE request data:", JSON.stringify(deleteData));
+
+    try {
+      await axios.delete(`${apiBaseUrl}/tickets`, {
+        data: deleteData,
+      });
+      setBoards((prevBoards) =>
+        prevBoards.map((board) =>
+          board.id === selectedBoardId
+            ? {
+                ...board,
+                tickets: board.tickets.filter(
+                  (ticket) => ticket.id !== selectedTicket.id
+                ),
+              }
+            : board
+        )
+      );
+      setSelectedTicket(null);
+    } catch (error) {
+      console.error("Error deleting ticket:", error);
+      alert("Failed to delete ticket. Please try again.");
+    }
+  };
+
   const selectedBoard =
     boards.find((board) => board.id === selectedBoardId) || null;
 
@@ -178,13 +285,20 @@ const KanbanBoard: React.FC = () => {
           <>
             <h2>{selectedBoard.boardName}</h2>
             <CreateTicket onCreate={handleCreateTicket} />
+            <button onClick={() => fetchTickets(selectedBoard.boardName)}>
+              Refresh Tickets
+            </button>
             <div className="kanban-columns">
               <div className="kanban-column">
                 <h3>To Do</h3>
                 {selectedBoard.tickets
                   .filter((ticket) => ticket.status === "To Do")
                   .map((ticket) => (
-                    <div key={ticket.id} className="kanban-ticket">
+                    <div
+                      key={ticket.id}
+                      className="kanban-ticket"
+                      onClick={() => handleTicketClick(ticket)}
+                    >
                       <h4>{ticket.title}</h4>
                       <p>{ticket.description}</p>
                       <button
@@ -202,7 +316,11 @@ const KanbanBoard: React.FC = () => {
                 {selectedBoard.tickets
                   .filter((ticket) => ticket.status === "In Progress")
                   .map((ticket) => (
-                    <div key={ticket.id} className="kanban-ticket">
+                    <div
+                      key={ticket.id}
+                      className="kanban-ticket"
+                      onClick={() => handleTicketClick(ticket)}
+                    >
                       <h4>{ticket.title}</h4>
                       <p>{ticket.description}</p>
                       <button
@@ -227,7 +345,11 @@ const KanbanBoard: React.FC = () => {
                 {selectedBoard.tickets
                   .filter((ticket) => ticket.status === "Done")
                   .map((ticket) => (
-                    <div key={ticket.id} className="kanban-ticket">
+                    <div
+                      key={ticket.id}
+                      className="kanban-ticket"
+                      onClick={() => handleTicketClick(ticket)}
+                    >
                       <h4>{ticket.title}</h4>
                       <p>{ticket.description}</p>
                       <button
@@ -258,6 +380,27 @@ const KanbanBoard: React.FC = () => {
             />
             <button onClick={handleCreateBoard}>Create</button>
             <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+      {selectedTicket && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Edit Ticket</h2>
+            <input
+              type="text"
+              value={ticketTitle}
+              onChange={(e) => setTicketTitle(e.target.value)}
+              placeholder="Ticket Title"
+            />
+            <textarea
+              value={ticketDescription}
+              onChange={(e) => setTicketDescription(e.target.value)}
+              placeholder="Ticket Description"
+            />
+            <button onClick={handleTicketUpdate}>Update</button>
+            <button onClick={handleTicketDelete}>Delete</button>
+            <button onClick={() => setSelectedTicket(null)}>Cancel</button>
           </div>
         </div>
       )}
